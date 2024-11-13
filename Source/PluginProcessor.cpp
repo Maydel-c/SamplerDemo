@@ -22,7 +22,6 @@ SamplerDemoAudioProcessor::SamplerDemoAudioProcessor()
                        )
 #endif
 {
-    
     for(int i = 0; i < mNumVoices; ++i)
     {
         mSampler.addVoice(new juce::SamplerVoice());
@@ -187,6 +186,11 @@ void SamplerDemoAudioProcessor::setStateInformation (const void* data, int sizeI
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+}
+
+void SamplerDemoAudioProcessor::loadFile()
+{
+    
 }
 
 //==============================================================================
