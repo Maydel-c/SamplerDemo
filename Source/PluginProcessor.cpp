@@ -22,6 +22,9 @@ SamplerDemoAudioProcessor::SamplerDemoAudioProcessor()
                        )
 #endif
 {
+    
+    mFormatManager.registerBasicFormats();
+    
     for(int i = 0; i < mNumVoices; ++i)
     {
         mSampler.addVoice(new juce::SamplerVoice());
@@ -31,6 +34,7 @@ SamplerDemoAudioProcessor::SamplerDemoAudioProcessor()
 
 SamplerDemoAudioProcessor::~SamplerDemoAudioProcessor()
 {
+    mFormatReader = nullptr;
 }
 
 //==============================================================================
@@ -195,6 +199,7 @@ void SamplerDemoAudioProcessor::loadFile()
     if(chooser.browseForFileToOpen())
     {
         auto file = chooser.getResult();
+        mFormatReader = mFormatManager.createReaderFor(file);
     }
     
 }

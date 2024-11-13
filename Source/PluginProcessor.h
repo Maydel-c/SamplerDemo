@@ -60,6 +60,10 @@ private:
     juce::Synthesiser mSampler;
     const int mNumVoices { 3 };
     
+    juce::AudioFormatManager mFormatManager;
+//    std::unique_ptr<juce::AudioFormatReader> mFormatReader { nullptr };
+    juce::AudioFormatReader* mFormatReader { nullptr }; // declaring it as a pointer allows us to use the same reader to read different files
+    
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SamplerDemoAudioProcessor)
 };
