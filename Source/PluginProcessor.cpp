@@ -22,10 +22,17 @@ SamplerDemoAudioProcessor::SamplerDemoAudioProcessor()
                        )
 #endif
 {
+    mFormatManager.registerBasicFormats();
+    
+    for(int i = 0; i < mNumVoices; ++i)
+    {
+       mSampler.addVoice(new juce::SamplerVoice());
+    }
 }
 
 SamplerDemoAudioProcessor::~SamplerDemoAudioProcessor()
 {
+    mFormatReader = nullptr;
 }
 
 //==============================================================================
@@ -93,8 +100,7 @@ void SamplerDemoAudioProcessor::changeProgramName (int index, const juce::String
 //==============================================================================
 void SamplerDemoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    mSampler.setCurrentPlaybackSampleRate(sampleRate);
 }
 
 void SamplerDemoAudioProcessor::releaseResources()
@@ -137,6 +143,8 @@ void SamplerDemoAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
 
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
+    
+    mSampler.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================
