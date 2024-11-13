@@ -190,6 +190,12 @@ void SamplerDemoAudioProcessor::setStateInformation (const void* data, int sizeI
 
 void SamplerDemoAudioProcessor::loadFile()
 {
+    juce::FileChooser chooser {"Please load a file"};
+    
+    if(chooser.browseForFileToOpen())
+    {
+        auto file = chooser.getResult();
+    }
     
 }
 
