@@ -41,10 +41,26 @@ void SamplerDemoAudioProcessorEditor::resized()
 
 bool SamplerDemoAudioProcessorEditor::isInterestedInFileDrag (const juce::StringArray& files)
 {
+    
+    for (auto file : files)
+    {
+        if (file.contains(".wav") || file.contains(".mp3") || file.contains("aif"))
+        {
+            return true;
+        }
+    }
+    
     return false;
 }
 
 void SamplerDemoAudioProcessorEditor::filesDropped (const juce::StringArray& files, int x, int y)
 {
-    
+    for (auto file : files)
+    {
+        if (isInterestedInFileDrag(files))
+        {
+            // load the file
+        }
+    }
+   
 }

@@ -183,6 +183,11 @@ void SamplerDemoAudioProcessor::setStateInformation (const void* data, int sizeI
     // whose contents will have been created by the getStateInformation() call.
 }
 
+void SamplerDemoAudioProcessor::loadFile(const juce::String& path) {
+    
+}
+
+
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
