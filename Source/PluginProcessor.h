@@ -54,7 +54,8 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     void loadFile(const juce::String& path);
-
+    int getNumSamplerSounds() { return mSampler.getNumSounds(); }
+    
 private:
     
     juce::Synthesiser mSampler;

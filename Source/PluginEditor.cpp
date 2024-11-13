@@ -28,9 +28,22 @@ void SamplerDemoAudioProcessorEditor::paint (juce::Graphics& g)
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (juce::Colours::black);
     
+    auto bounds = getLocalBounds();
+    g.setFont(15.0f);
+    g.setColour(juce::Colours::white);
+    
     // if we have a sound
+    if(audioProcessor.getNumSamplerSounds() > 0)
+    {
         // display "sound loaded"
+        g.fillAll(juce::Colours::red);
+        g.drawText("Sound Loaded", bounds, juce::Justification::centred);
+    }
     // else display "load a sound"
+    else
+    {
+        g.drawText("Please load a sound", bounds, juce::Justification::centred);
+    }
 }
 
 void SamplerDemoAudioProcessorEditor::resized()
@@ -63,4 +76,5 @@ void SamplerDemoAudioProcessorEditor::filesDropped (const juce::StringArray& fil
         }
     }
    
+    repaint();
 }
