@@ -54,6 +54,10 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
+    
+    juce::Synthesizer mSampler;
+    const int mNumVoices { 3 };
+    
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SamplerDemoAudioProcessor)
 };
