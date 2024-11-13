@@ -38,3 +38,13 @@ void SamplerDemoAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 }
+
+bool SamplerDemoAudioProcessorEditor::isInterestedInFileDrag (const juce::StringArray& files)
+{
+    return false;
+}
+
+void SamplerDemoAudioProcessorEditor::filesDropped (const juce::StringArray& files, int x, int y)
+{
+    
+}
