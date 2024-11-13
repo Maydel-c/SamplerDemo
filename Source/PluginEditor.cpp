@@ -26,11 +26,11 @@ SamplerDemoAudioProcessorEditor::~SamplerDemoAudioProcessorEditor()
 void SamplerDemoAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-
-    g.setColour (juce::Colours::white);
-    g.setFont (juce::FontOptions (15.0f));
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    g.fillAll (juce::Colours::black);
+    
+    // if we have a sound
+        // display "sound loaded"
+    // else display "load a sound"
 }
 
 void SamplerDemoAudioProcessorEditor::resized()
@@ -57,9 +57,9 @@ void SamplerDemoAudioProcessorEditor::filesDropped (const juce::StringArray& fil
 {
     for (auto file : files)
     {
-        if (isInterestedInFileDrag(files))
+        if (isInterestedInFileDrag(file))
         {
-            // load the file
+            audioProcessor.loadFile(file);
         }
     }
    

@@ -56,6 +56,11 @@ public:
     void loadFile(const juce::String& path);
 
 private:
+    
+    juce::Synthesiser mSampler;
+    juce::AudioFormatManager mFormatManager;
+    juce::AudioFormatReader* mFormatReader;
+    
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SamplerDemoAudioProcessor)
 };
