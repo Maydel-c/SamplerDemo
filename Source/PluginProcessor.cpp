@@ -202,6 +202,11 @@ void SamplerDemoAudioProcessor::loadFile()
         mFormatReader = mFormatManager.createReaderFor(file);
     }
     
+    juce::BigInteger range;
+    range.setRange(0, 128, true);
+    
+    mSampler.addSound(new juce::SamplerSound("Sample", *mFormatReader, range, 60 /*C3*/, 0.1, 0.1, 10.0));
+    
 }
 
 //==============================================================================
