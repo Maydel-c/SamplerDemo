@@ -28,6 +28,35 @@ void SamplerDemoAudioProcessorEditor::paint (juce::Graphics& g)
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (juce::Colours::black);
     
+    g.setColour(juce::Colours::white);
+    
+    if(shouldBePainting)
+    {
+        juce::Path p;
+        mAudioPoints.clear();
+        
+        auto waveform = audioProcessor.getWaveForm();
+        auto ratio = waveform.getNumSamples() / getWidth();
+        
+        auto buffer = waveform.getReadPointer(0);
+        
+        for (int sample = 0; sample < waveform.getNumSamples(); sample+=ratio)
+        {
+            mAudioPoints.push_back(buffer[sample]);
+        }
+        
+        p.startNewSubPath(0, getHeight() / 2);
+        
+        for (int sample = 0; sample < mAudioPoints.size(); ++sample)
+        {
+            auto point = juce::jmap<float>(mAudioPoints[sample], -1, 1, 200, 0);
+            p.lineTo(sample, point);
+        }
+        
+        g.strokePath(p, juce::PathStrokeType(2));
+        
+        shouldBePainting = false;
+    }
     // new file dropped?
         // if yes
             // get the waveform from the processor
@@ -82,6 +111,7 @@ void SamplerDemoAudioProcessorEditor::filesDropped (const juce::StringArray& fil
         if (isInterestedInFileDrag(file))
         {
             audioProcessor.loadFile(file);
+            shouldBePainting = true;
         }
     }
    

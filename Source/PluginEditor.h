@@ -31,7 +31,10 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
+    
+    std::vector<float> mAudioPoints;
     SamplerDemoAudioProcessor& audioProcessor;
+    bool shouldBePainting { false };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SamplerDemoAudioProcessorEditor)
 };

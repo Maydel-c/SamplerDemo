@@ -56,6 +56,8 @@ public:
     void loadFile(const juce::String& path);
     int getNumSamplerSounds() { return mSampler.getNumSounds(); }
     
+    juce::AudioBuffer<float>& getWaveForm() { return mWaveForm; }
+    
 private:
     
     juce::Synthesiser mSampler;
