@@ -184,11 +184,11 @@ void SamplerDemoAudioProcessor::loadFile(const juce::String& path) {
     mWaveForm.setSize(1, sampleLength);
     mFormatReader->read(&mWaveForm, 0, sampleLength, 0, true, false);
     
-    auto buffer = mWaveForm.getReadPointer(0);
-    for (int sample = 0; sample < mWaveForm.getNumSamples(); ++sample)
-    {
-        DBG(buffer[sample]);
-    }
+//    auto buffer = mWaveForm.getReadPointer(0);
+//    for (int sample = 0; sample < mWaveForm.getNumSamples(); ++sample)
+//    {
+//        DBG(buffer[sample]);
+//    }
     
     juce::BigInteger range;
     range.setRange(0, 128, true);
