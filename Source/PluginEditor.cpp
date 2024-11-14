@@ -13,8 +13,54 @@
 SamplerDemoAudioProcessorEditor::SamplerDemoAudioProcessorEditor (SamplerDemoAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
+    // Attack
+    mAttackSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mAttackSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::red);
+    mAttackSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 20);
+    mAttackSlider.setRange(0.0, 5.0, 0.01);
+    addAndMakeVisible(mAttackSlider);
+    
+    mAttackLabel.setFont(juce::Font(juce::Font(juce::FontOptions(10))));
+    mAttackLabel.setText("Attack", juce::NotificationType::dontSendNotification);
+    mAttackLabel.setJustificationType(juce::Justification::centredTop);
+    mAttackLabel.attachToComponent(&mAttackSlider, false);
+    
+    // Decay
+    mDecaySlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mDecaySlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::red);
+    mDecaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 20);
+    mDecaySlider.setRange(0.0, 5.0, 0.01);
+    addAndMakeVisible(mDecaySlider);
+    
+    mDecayLabel.setFont(juce::Font(juce::Font(juce::FontOptions(10))));
+    mDecayLabel.setText("Decay", juce::NotificationType::dontSendNotification);
+    mDecayLabel.setJustificationType(juce::Justification::centredTop);
+    mDecayLabel.attachToComponent(&mDecaySlider, false);
+    
+    // Sustain
+    mSustainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mSustainSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::red);
+    mSustainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 20);
+    mSustainSlider.setRange(0.0, 1.0, 0.01);
+    addAndMakeVisible(mSustainSlider);
+    
+    mSustainLabel.setFont(juce::Font(juce::Font(juce::FontOptions(10))));
+    mSustainLabel.setText("Sustain", juce::NotificationType::dontSendNotification);
+    mSustainLabel.setJustificationType(juce::Justification::centredTop);
+    mSustainLabel.attachToComponent(&mSustainSlider, false);
+    
+    // Release
+    mReleaseSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mReleaseSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::red);
+    mReleaseSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 20);
+    mReleaseSlider.setRange(0.0, 5.0, 0.01);
+    addAndMakeVisible(mReleaseSlider);
+    
+    mReleaseLabel.setFont(juce::Font(juce::Font(juce::FontOptions(10))));
+    mReleaseLabel.setText("Release", juce::NotificationType::dontSendNotification);
+    mReleaseLabel.setJustificationType(juce::Justification::centredTop);
+    mReleaseLabel.attachToComponent(&mReleaseSlider, false);
+    
     setSize (600, 200);
 }
 
@@ -32,6 +78,7 @@ void SamplerDemoAudioProcessorEditor::paint (juce::Graphics& g)
     
     if(shouldBePainting)
     {
+        g.fillAll(juce::Colours::beige);
         juce::Path p;
         mAudioPoints.clear();
         
@@ -49,7 +96,7 @@ void SamplerDemoAudioProcessorEditor::paint (juce::Graphics& g)
         
         for (int sample = 0; sample < mAudioPoints.size(); ++sample)
         {
-            auto point = juce::jmap<float>(mAudioPoints[sample], -1, 1, 200, 0);
+            auto point = juce::jmap<float>(mAudioPoints[sample], -1.0f, 1.0f, 200, 0);
             p.lineTo(sample, point);
         }
         
@@ -86,8 +133,15 @@ void SamplerDemoAudioProcessorEditor::paint (juce::Graphics& g)
 
 void SamplerDemoAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+    const auto startX = 0.6f;
+    const auto startY = 0.5f;
+    const auto dialWidth = 0.1f;
+    const auto dialHeight = 0.4f;
+    mAttackSlider.setBoundsRelative(startX, startY, dialWidth, dialHeight);
+    mDecaySlider.setBoundsRelative(startX + dialWidth, startY, dialWidth, dialHeight);
+    mSustainSlider.setBoundsRelative(startX + 2*dialWidth, startY, dialWidth, dialHeight);
+    mReleaseSlider.setBoundsRelative(startX + 3*dialWidth, startY, dialWidth, dialHeight);
+    
 }
 
 bool SamplerDemoAudioProcessorEditor::isInterestedInFileDrag (const juce::StringArray& files)
@@ -110,8 +164,8 @@ void SamplerDemoAudioProcessorEditor::filesDropped (const juce::StringArray& fil
     {
         if (isInterestedInFileDrag(file))
         {
-            audioProcessor.loadFile(file);
             shouldBePainting = true;
+            audioProcessor.loadFile(file);
         }
     }
    
