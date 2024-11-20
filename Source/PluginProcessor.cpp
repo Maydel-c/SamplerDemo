@@ -101,6 +101,15 @@ void SamplerDemoAudioProcessor::changeProgramName (int index, const juce::String
 void SamplerDemoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     mSampler.setCurrentPlaybackSampleRate(sampleRate);
+    
+//    for (int i = 0; i < mSampler.getNumSounds(); ++i)
+//    {
+//        if (auto sound = dynamic_cast<juce::SamplerSound*>(mSampler.getSound(i).get())) {
+//            sound->setEnvelopeParameters(mADSRParams);
+//        }
+//    }
+    updateADSR();
+    
 }
 
 void SamplerDemoAudioProcessor::releaseResources()
@@ -198,8 +207,13 @@ void SamplerDemoAudioProcessor::loadFile(const juce::String& path) {
     mSampler.addSound(new juce::SamplerSound("Sample", *mFormatReader, range, 60, 0.1, 0.1, 10.0));
 }
 
-void SamplerDemoAudioProcessor::getADSRValue() { 
-    DBG("Attack:" << attack << " Decay:" << decay << " Sustain:" << sustain << " Release:" << release);
+void SamplerDemoAudioProcessor::updateADSR() {
+    for (int i = 0; i < mSampler.getNumSounds(); ++i)
+    {
+        if (auto sound = dynamic_cast<juce::SamplerSound*>(mSampler.getSound(i).get())) {
+            sound->setEnvelopeParameters(mADSRParams);
+        }
+    }
 }
 
 

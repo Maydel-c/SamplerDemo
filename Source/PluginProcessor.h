@@ -58,7 +58,7 @@ public:
     
     juce::AudioBuffer<float>& getWaveForm() { return mWaveForm; }
     
-    void getADSRValue();
+    void updateADSR();
     
     float attack { 0.0f };
     float decay { 0.0f };
@@ -71,6 +71,8 @@ private:
     const int mNumVoices { 3 };
     
     juce::AudioBuffer<float> mWaveForm;
+    
+    juce::ADSR::Parameters mADSRParams;
     
     juce::AudioFormatManager mFormatManager;
     juce::AudioFormatReader* mFormatReader { nullptr };

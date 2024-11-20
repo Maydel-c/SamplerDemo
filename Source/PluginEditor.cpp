@@ -193,5 +193,7 @@ void SamplerDemoAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {
     {
         audioProcessor.release = mReleaseSlider.getValue();
     }
+    
+    audioProcessor.updateADSR();
 }
 
