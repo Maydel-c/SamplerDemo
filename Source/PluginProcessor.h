@@ -60,10 +60,12 @@ public:
     
     void updateADSR();
     
-    float attack { 0.0f };
-    float decay { 0.0f };
-    float sustain { 0.0f };
-    float release { 0.0f };
+//    float attack { 0.0f };
+//    float decay { 0.0f };
+//    float sustain { 0.0f };
+//    float release { 0.0f };
+    
+    juce::ADSR::Parameters& getADSRParams() { return mADSRParams; }
     
 private:
     
