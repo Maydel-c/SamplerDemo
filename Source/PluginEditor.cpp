@@ -18,6 +18,7 @@ SamplerDemoAudioProcessorEditor::SamplerDemoAudioProcessorEditor (SamplerDemoAud
     mAttackSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::red);
     mAttackSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 20);
     mAttackSlider.setRange(0.0, 5.0, 0.01);
+    mAttackSlider.addListener(this);
     addAndMakeVisible(mAttackSlider);
     
     mAttackLabel.setFont(juce::Font(juce::Font(juce::FontOptions(10))));
@@ -30,6 +31,7 @@ SamplerDemoAudioProcessorEditor::SamplerDemoAudioProcessorEditor (SamplerDemoAud
     mDecaySlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::red);
     mDecaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 20);
     mDecaySlider.setRange(0.0, 5.0, 0.01);
+    mDecaySlider.addListener(this);
     addAndMakeVisible(mDecaySlider);
     
     mDecayLabel.setFont(juce::Font(juce::Font(juce::FontOptions(10))));
@@ -42,6 +44,7 @@ SamplerDemoAudioProcessorEditor::SamplerDemoAudioProcessorEditor (SamplerDemoAud
     mSustainSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::red);
     mSustainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 20);
     mSustainSlider.setRange(0.0, 1.0, 0.01);
+    mSustainSlider.addListener(this);
     addAndMakeVisible(mSustainSlider);
     
     mSustainLabel.setFont(juce::Font(juce::Font(juce::FontOptions(10))));
@@ -54,6 +57,7 @@ SamplerDemoAudioProcessorEditor::SamplerDemoAudioProcessorEditor (SamplerDemoAud
     mReleaseSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::red);
     mReleaseSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 20);
     mReleaseSlider.setRange(0.0, 5.0, 0.01);
+    mReleaseSlider.addListener(this);
     addAndMakeVisible(mReleaseSlider);
     
     mReleaseLabel.setFont(juce::Font(juce::Font(juce::FontOptions(10))));
@@ -171,3 +175,23 @@ void SamplerDemoAudioProcessorEditor::filesDropped (const juce::StringArray& fil
    
     repaint();
 }
+
+void SamplerDemoAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) { 
+    if (slider == &mAttackSlider)
+    {
+        audioProcessor.attack = mAttackSlider.getValue();
+    }
+    else if (slider == &mDecaySlider)
+    {
+        audioProcessor.decay = mDecaySlider.getValue();
+    }
+    else if (slider == &mSustainSlider)
+    {
+        audioProcessor.sustain = mSustainSlider.getValue();
+    }
+    else if (slider == &mReleaseSlider)
+    {
+        audioProcessor.release = mReleaseSlider.getValue();
+    }
+}
+
