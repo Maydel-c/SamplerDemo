@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "WaveThumbnail.h"
 
 //==============================================================================
 /**
@@ -35,12 +36,11 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     
-    std::vector<float> mAudioPoints;
-    SamplerDemoAudioProcessor& audioProcessor;
-    bool shouldBePainting { false };
-    
     juce::Slider mAttackSlider, mDecaySlider, mSustainSlider, mReleaseSlider;
     juce::Label mAttackLabel, mDecayLabel, mSustainLabel, mReleaseLabel;
+    
+    WaveThumbnail mWaveThumbnail;
+    SamplerDemoAudioProcessor& audioProcessor;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SamplerDemoAudioProcessorEditor)
 };

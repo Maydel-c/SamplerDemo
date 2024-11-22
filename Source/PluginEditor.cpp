@@ -11,7 +11,7 @@
 
 //==============================================================================
 SamplerDemoAudioProcessorEditor::SamplerDemoAudioProcessorEditor (SamplerDemoAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p)
+    : AudioProcessorEditor (&p), mWaveThumbnail(p), audioProcessor (p)
 {
     // Attack
     mAttackSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
@@ -80,34 +80,7 @@ void SamplerDemoAudioProcessorEditor::paint (juce::Graphics& g)
     
     g.setColour(juce::Colours::white);
     
-    if(shouldBePainting)
-    {
-        g.fillAll(juce::Colours::beige);
-        juce::Path p;
-        mAudioPoints.clear();
-        
-        auto waveform = audioProcessor.getWaveForm();
-        auto ratio = waveform.getNumSamples() / getWidth();
-        
-        auto buffer = waveform.getReadPointer(0);
-        
-        for (int sample = 0; sample < waveform.getNumSamples(); sample+=ratio)
-        {
-            mAudioPoints.push_back(buffer[sample]);
-        }
-        
-        p.startNewSubPath(0, getHeight() / 2);
-        
-        for (int sample = 0; sample < mAudioPoints.size(); ++sample)
-        {
-            auto point = juce::jmap<float>(mAudioPoints[sample], -1.0f, 1.0f, 200, 0);
-            p.lineTo(sample, point);
-        }
-        
-        g.strokePath(p, juce::PathStrokeType(2));
-        
-        shouldBePainting = false;
-    }
+    
     // new file dropped?
         // if yes
             // get the waveform from the processor
