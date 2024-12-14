@@ -17,7 +17,8 @@
 //==============================================================================
 /*
 */
-class WaveThumbnail  : public juce::Component
+class WaveThumbnail  :  public juce::Component,
+                        public juce::FileDragAndDropTarget
 {
 public:
     WaveThumbnail(SamplerDemoAudioProcessor& p); // Don't forget to pass in the processor
@@ -25,6 +26,8 @@ public:
 
     void paint (juce::Graphics&) override;
     void resized() override;
+    bool isInterestedInFileDrag (const juce::StringArray& files) override;
+    void filesDropped (const juce::StringArray& files, int x, int y) override;
 
 private:
     

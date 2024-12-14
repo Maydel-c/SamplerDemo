@@ -18,7 +18,7 @@ SamplerDemoAudioProcessorEditor::SamplerDemoAudioProcessorEditor (SamplerDemoAud
     mAttackSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::red);
     mAttackSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 20);
     mAttackSlider.setRange(0.0, 5.0, 0.01);
-    mAttackSlider.addListener(this);
+//    mAttackSlider.addListener(this);
     addAndMakeVisible(mAttackSlider);
     
     mAttackLabel.setFont(juce::Font(juce::Font(juce::FontOptions(10))));
@@ -31,7 +31,7 @@ SamplerDemoAudioProcessorEditor::SamplerDemoAudioProcessorEditor (SamplerDemoAud
     mDecaySlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::red);
     mDecaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 20);
     mDecaySlider.setRange(0.0, 5.0, 0.01);
-    mDecaySlider.addListener(this);
+//    mDecaySlider.addListener(this);
     addAndMakeVisible(mDecaySlider);
     
     mDecayLabel.setFont(juce::Font(juce::Font(juce::FontOptions(10))));
@@ -44,7 +44,7 @@ SamplerDemoAudioProcessorEditor::SamplerDemoAudioProcessorEditor (SamplerDemoAud
     mSustainSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::red);
     mSustainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 20);
     mSustainSlider.setRange(0.0, 1.0, 0.01);
-    mSustainSlider.addListener(this);
+//    mSustainSlider.addListener(this);
     addAndMakeVisible(mSustainSlider);
     
     mSustainLabel.setFont(juce::Font(juce::Font(juce::FontOptions(10))));
@@ -57,7 +57,7 @@ SamplerDemoAudioProcessorEditor::SamplerDemoAudioProcessorEditor (SamplerDemoAud
     mReleaseSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::red);
     mReleaseSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 20);
     mReleaseSlider.setRange(0.0, 5.0, 0.01);
-    mReleaseSlider.addListener(this);
+//    mReleaseSlider.addListener(this);
     addAndMakeVisible(mReleaseSlider);
     
     mReleaseLabel.setFont(juce::Font(juce::Font(juce::FontOptions(10))));
@@ -65,7 +65,10 @@ SamplerDemoAudioProcessorEditor::SamplerDemoAudioProcessorEditor (SamplerDemoAud
     mReleaseLabel.setJustificationType(juce::Justification::centredTop);
     mReleaseLabel.attachToComponent(&mReleaseSlider, false);
     
-    setSize (600, 200);
+    // WaveThumbnail
+    addAndMakeVisible(mWaveThumbnail);
+    
+    setSize (600, 400);
 }
 
 SamplerDemoAudioProcessorEditor::~SamplerDemoAudioProcessorEditor()
@@ -110,6 +113,9 @@ void SamplerDemoAudioProcessorEditor::paint (juce::Graphics& g)
 
 void SamplerDemoAudioProcessorEditor::resized()
 {
+    
+    mWaveThumbnail.setBoundsRelative(0.0f, 0.25f, 1.f, 0.5f);
+    
     const auto startX = 0.6f;
     const auto startY = 0.5f;
     const auto dialWidth = 0.1f;
@@ -121,34 +127,8 @@ void SamplerDemoAudioProcessorEditor::resized()
     
 }
 
-bool SamplerDemoAudioProcessorEditor::isInterestedInFileDrag (const juce::StringArray& files)
-{
-    
-    for (auto file : files)
-    {
-        if (file.contains(".wav") || file.contains(".mp3") || file.contains("aif"))
-        {
-            return true;
-        }
-    }
-    
-    return false;
-}
 
-void SamplerDemoAudioProcessorEditor::filesDropped (const juce::StringArray& files, int x, int y)
-{
-    for (auto file : files)
-    {
-        if (isInterestedInFileDrag(file))
-        {
-            shouldBePainting = true;
-            audioProcessor.loadFile(file);
-        }
-    }
-   
-    repaint();
-}
-
+/*
 void SamplerDemoAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) { 
     if (slider == &mAttackSlider)
     {
@@ -170,3 +150,4 @@ void SamplerDemoAudioProcessorEditor::sliderValueChanged(juce::Slider *slider) {
     audioProcessor.updateADSR();
 }
 
+*/
